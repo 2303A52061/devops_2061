@@ -1,0 +1,48 @@
+:root{
+  --bg: #f3f6fb;
+  --card: #fff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --accent: #2563eb;
+  --accent-600: #1e40af;
+  --grade-a: #059669;
+  --grade-b: #f59e0b;
+  --grade-c: #ef4444;
+}
+
+*{box-sizing:border-box}
+body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:var(--bg); color:var(--text)}
+.app{max-width:980px;margin:28px auto;padding:0 16px}
+.app.dark{background:#0b1220;color:#e6eef8}
+.app.dark .card{background:#071428}
+.app.dark .muted{color:#9fb0d1}
+.app.dark .add-form input{background:#020617;color:#e6eef8}
+.app-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.app-header h1{margin:0 0 6px}
+.muted{color:var(--muted)}
+.cards{display:flex;gap:16px;flex-wrap:wrap}
+.card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 20px rgba(11,22,40,0.06);width:280px}
+.card h2{margin:0 0 6px;font-size:1.15rem}
+.card ul{margin:8px 0 12px;padding-left:18px}
+.card p{margin:6px 0}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;color:white;font-weight:700}
+.marks ul{margin:6px 0;padding-left:18px}
+
+.summary{margin-top:8px}
+.total{display:flex;flex-direction:column;gap:8px}
+.progress{background:#e6eef8;border-radius:999px;height:10px;overflow:hidden}
+.progress-bar{height:10px;border-radius:999px;width:40%;background:var(--accent)}
+
+.controls{margin-bottom:18px}
+.add-form{background:transparent;padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:8px}
+.add-form .row{display:flex;gap:8px}
+.add-form input{flex:1;padding:8px 10px;border-radius:8px;border:1px solid #dbeafe}
+.add-form .actions{align-items:center}
+
+.btn{padding:8px 12px;border-radius:8px;border:0;background:transparent;cursor:pointer}
+.btn.ghost{border:1px solid rgba(15,23,42,0.06);background:transparent}
+.btn.primary{background:var(--accent);color:white;border-radius:8px}
+.btn:active{transform:translateY(1px)}
+
+.header-actions{display:flex;gap:8px;align-items:center}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Marks Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <div>
+        <h1>Student Marks Card</h1>
+        <p class="subtitle">Parent app stores students and passes data to StudentCard</p>
+      </div>
+      <div class="header-actions">
+        <button id="themeToggle" class="btn btn-ghost" aria-pressed="false">🌙 Dark Mode</button>
+      </div>
+    </header>
+
+    <section class="card form-card" aria-labelledby="formTitle">
+      <h2 id="formTitle">Add Student</h2>
+      <form id="studentForm" class="student-form">
+        <div class="form-row">
+          <input type="text" id="name" name="name" placeholder="Student Name" required>
+          <input type="text" id="roll" name="roll" placeholder="Roll Number" required>
+        </div>
+
+        <div class="form-row">
+          <input type="number" id="math" name="math" placeholder="Math (0-100)" min="0" max="100" required>
+          <input type="number" id="science" name="science" placeholder="Science (0-100)" min="0" max="100" required>
+          <input type="number" id="english" name="english" placeholder="English (0-100)" min="0" max="100" required>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Add Student</button>
+          <button type="button" id="resetBtn" class="btn">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section>
+      <h2 class="section-title">Students</h2>
+      <div id="cards" class="cards-grid" aria-live="polite">
+        <!-- Student cards will be inserted here -->
+      </div>
+    </section>
+
+    <footer class="footer">&copy; <span id="year"></span> Student Marks Card</footer>
+  </div>
+  <!-- Toast notifications -->
+  <div id="toast" class="toast" aria-live="assertive" aria-atomic="true"></div>
+
+  <script src="script.js" type="module"></script>
+</body>
+</html>

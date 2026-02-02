@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Marks Card</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin: 24px; background:#f7f9fc; color:#1f2937 }
+    .container { max-width:900px; margin:0 auto }
+    .grid { display:flex; gap:16px; flex-wrap:wrap }
+    .card { background: white; border-radius:8px; padding:16px; box-shadow:0 2px 6px rgba(0,0,0,0.08); width:280px }
+    .card h2 { margin:0 0 8px }
+    .card ul { margin:8px 0 12px; padding-left:20px }
+    .card p { margin:6px 0 }
+    header h1 { margin:0 0 18px }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React + ReactDOM (UMD) and Babel for JSX in the browser -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    /* StudentCard - child component
+       Props:
+         - name: string
+         - roll: string
+         - marks: object (subject: numeric)
+       Renders marks, calculates total, percentage and grade.
+    */
+    function StudentCard({ name, roll, marks }) {
+      const markEntries = marks && typeof marks === 'object' ? Object.entries(marks) : [];
+      const numericMarks = markEntries
+        .map(([_, v]) => Number(v))
+        .filter((n) => !Number.isNaN(n));
+
+      const total = numericMarks.reduce((a, b) => a + b, 0);
+      const maxTotal = numericMarks.length * 100;
+      const percentage = numericMarks.length ? (total / maxTotal) * 100 : 0;
+
+      const grade = (() => {
+        if (numericMarks.length === 0) return 'N/A';
+        if (percentage >= 90) return 'A+';
+        if (percentage >= 80) return 'A';
+        if (percentage >= 70) return 'B';
+        if (percentage >= 60) return 'C';
+        if (percentage >= 50) return 'D';
+        return 'F';
+      })();
+
+      return (
+        <div className="card">
+          <h2>{name}</h2>
+          <p><strong>Roll:</strong> {roll}</p>
+
+          <h3>Marks</h3>
+          {markEntries.length === 0 ? (
+            <p>No marks available</p>
+          ) : (
+            <ul>
+              {markEntries.map(([subject, value]) => (
+                <li key={subject}>{subject}: {value}</li>
+              ))}
+            </ul>
+          )}
+
+          <p><strong>Total:</strong> {total} {numericMarks.length ? `/ ${maxTotal}` : ''}</p>
+          <p><strong>Percentage:</strong> {numericMarks.length ? percentage.toFixed(2) + '%' : 'N/A'}</p>
+          <p><strong>Grade:</strong> {grade}</p>
+        </div>
+      );
+    }
+
+    /* App - parent component
+       Stores student data and passes to StudentCard via props.
+       Demonstrates reusing StudentCard for multiple students.
+    */
+    function App() {
+      const [students] = useState([
+        { name: 'Alice', roll: 'A01', marks: { Math: 95, Science: 88, English: 92 } },
+        { name: 'Bob', roll: 'B02', marks: { Math: 72, Science: 65, English: 70 } },
+        { name: 'Charlie', roll: 'C03', marks: { Math: 45, Science: 55, English: 50 } },
+        { name: 'Dana', roll: 'D04', marks: {} },
+      ]);
+
+      return (
+        <div className="container">
+          <header>
+            <h1>Student Marks Card</h1>
+            <p>Parent (App) → passes student data to StudentCard via props. Child computes total & grade.</p>
+          </header>
+
+          <div className="grid">
+            {students.map((s, idx) => (
+              <StudentCard key={s.roll || idx} name={s.name} roll={s.roll} marks={s.marks} />
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
